@@ -65,6 +65,8 @@ UI Monitoring — Dashboard updates logs and progress bars in real-time.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Domain Model — Automated Waste Sorting & Recycling System
 
+<img width="587" height="600" alt="Automated Waste Sorting   Recycling System" src="https://github.com/user-attachments/assets/7d2a7ff4-678f-47fc-a48b-0029506dcff1" />
+
 Overview
 This project simulates a small automated waste sorting facility. The domain model (diagram) captures the real-world entities and relationships in the system: the central management system, the task coordinator, autonomous robots, storage bins, a charging station, and waste items. The diagram intentionally models the problem domain (what the system is about), not implementation details. 
 The domain model drives the application logic: the UI / controller triggers the process, the TaskManager allocates tasks, robots pick and deposit waste items into the correct bins, and robots recharge as needed.
