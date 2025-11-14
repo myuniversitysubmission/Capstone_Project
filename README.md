@@ -1,170 +1,201 @@
-# Capstone_Project
-Automated Waste Sorting &amp; Recycling System
+# Automated Waste Sorting & Recycling System
 
-🧠 Project Overview
-The Automated Waste Sorting & Recycling System is a simulation-based Java application that models a smart waste management facility.
-The goal is to automate the sorting and recycling process using robots, intelligent bins, and real-time task management.
-It demonstrates how IoT and automation principles can optimize recycling operations — reducing manual labor and improving efficiency.
-The system is built entirely in Java (JavaFX + OOP principles), with a clear modular architecture separating UI, task logic, and physical simulation components.
+## 🧭 Overview
+The **Automated Waste Sorting & Recycling System** is a simulation-based JavaFX project designed to emulate how an intelligent waste management system can automatically **sort**, **store**, and **recycle** waste using autonomous robots.
 
-🎯 Key Features
-🤖 Autonomous Robots — pick up and deposit waste items into correct bins.
-⚙️ Smart Task Manager — dynamically assigns sorting tasks.
-🔋 Charging Simulation — robots detect low battery and recharge automatically.
-🗑️ Bin Monitoring — tracks fill levels and capacity in real-time.
-🖥️ Interactive Dashboard (JavaFX) — displays robot activity, logs, and bin progress bars.
-✅ Multi-threaded Operation — robots and task manager run concurrently.
+The project focuses on **sustainability through automation**, demonstrating how AI-powered robotic systems can optimize waste segregation, manage recycling operations, and maintain efficient system performance in real time.
 
-🧩 System Architecture & Code Structure
-The project follows a modular, domain-driven design, with clearly separated packages:
+---
+
+## 🎯 Project Aim
+To design and simulate an **intelligent waste management system** that:
+- Sorts different types of waste automatically.
+- Manages bin capacities and triggers recycling processes.
+- Demonstrates concurrency and synchronization between multiple autonomous agents (robots).
+- Provides a visual dashboard to monitor system operations.
+
+---
+
+## 🧩 Objectives
+1. **Automation:** Enable robots to pick and sort waste items into correct bins.
+2. **Simulation:** Use JavaFX to display real-time waste levels and robot activities.
+3. **Recycling Logic:** Automatically recycle bins once they reach full capacity.
+4. **Concurrency:** Implement multi-threading for robots, recycling, and UI updates.
+5. **Logging & Tracking:** Maintain a centralized logging system for all activities.
+6. **System Resilience:** Implement controlled reset, reinitialization, and error handling.
+
+---
+
+## 🏗️ Project Structure
+
 AutomatedWasteSortingSystem/
 │
-├── src/com/wastesystem/
-│   ├── Main.java                        → Entry point for console simulation
-│   │
-│   ├── equipment/
-│   │   └── Robot.java                   → Represents autonomous sorting robot
-│   │
-│   ├── charging/
-│   │   └── ChargingStation.java         → Manages robot recharging logic
-│   │
-│   ├── tasks/
-│   │   └── TaskManager.java             → Assigns waste items to robots & bins
-│   │
-│   ├── storage/
-│   │   ├── StorageBin.java              → Represents bins storing sorted waste
-│   │   └── WasteItem.java               → Represents individual waste items
-│   │
-│   ├── ui/
-│   │   └── WasteManagementUI.java       → JavaFX-based control dashboard
-│   │
-│   └── utils/
-│       └── (Optional helper classes)    → For logging, timing, etc.
+├── src/
+│ ├── com.wastesystem.charging/
+│ │ └── ChargingStation.java
+│ │
+│ ├── com.wastesystem.equipment/
+│ │ └── Robot.java
+│ │
+│ ├── com.wastesystem.recycling/
+│ │ └── RecyclingPlant.java
+│ │
+│ ├── com.wastesystem.storage/
+│ │ ├── StorageBin.java
+│ │ └── WasteItem.java
+│ │
+│ ├── com.wastesystem.tasks/
+│ │ └── TaskManager.java
+│ │
+│ ├── com.wastesystem.ui/
+│ │ ├── WasteManagementUI.java
+│ │ └── TestUI.java
+│ │
+│ └── com.wastesystem.utils/
+│ ├── LogHandler.java
+│ ├── SystemException.java
+│ ├── LogHandlerTest.java
+│ ├── ChargingStationTest.java
+│ ├── RecyclingTest.java
+│ ├── StorageBinTest.java
+│ ├── RobotTest.java
+│ ├── TaskManagerTest.java
+│ └── ConcurrencyTest.java
 │
-└── README.md
+├── system_log.txt
+├── README.md
+└── .gitignore
 
-🧠 Code Design Summary
-| Layer         | Purpose                                                    |
-| ------------- | ---------------------------------------------------------- |
-| **Equipment** | Contains classes representing physical actors like `Robot` |
-| **Storage**   | Represents bins and waste items                            |
-| **Tasks**     | Handles coordination, assignment, and task distribution    |
-| **Charging**  | Manages robot energy and recharging behavior               |
-| **UI**        | Provides real-time visual feedback via JavaFX              |
-| **Main**      | Entry point that brings all subsystems together            |
-Each package is loosely coupled and highly cohesive, making the project easy to extend — e.g., adding new waste types, more robots, or IoT-based data logging.
 
-🔄 Execution Flow
-System Initialization — Robots, bins, and task manager are created.
-Simulation Start — Tasks are randomly generated and queued.
-Task Distribution — TaskManager assigns tasks to robots.
-Waste Sorting — Robots pick up and deposit waste into appropriate bins.
-Battery Handling — Robots auto-charge when low on power.
-UI Monitoring — Dashboard updates logs and progress bars in real-time.
+---
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Domain Model — Automated Waste Sorting & Recycling System
+## ⚙️ System Components
 
-<img width="587" height="600" alt="Automated Waste Sorting   Recycling System" src="https://github.com/user-attachments/assets/7d2a7ff4-678f-47fc-a48b-0029506dcff1" />
+### 🧠 1. **Task Management Subsystem**
+**Class:** `TaskManager.java`  
+Handles task allocation and robot coordination using queues.  
+Implements threading to simulate real-time task execution.
 
-Overview
-This project simulates a small automated waste sorting facility. The domain model (diagram) captures the real-world entities and relationships in the system: the central management system, the task coordinator, autonomous robots, storage bins, a charging station, and waste items. The diagram intentionally models the problem domain (what the system is about), not implementation details. 
-The domain model drives the application logic: the UI / controller triggers the process, the TaskManager allocates tasks, robots pick and deposit waste items into the correct bins, and robots recharge as needed.
+---
 
-TaskManager
-Role: coordinator / scheduler
-Responsibility: maintain the queue of sorting tasks (each task wraps a WasteItem), register robots and bins, assign tasks to available robots, and coordinate task flow.
-In code: com.wastesystem.tasks.TaskManager.
-Key operations: addTask(WasteItem), registerRobot(Robot), registerBin(StorageBin), startProcessing().
+### 🤖 2. **Robotic Equipment Subsystem**
+**Class:** `Robot.java`  
+Represents autonomous robots that pick, sort, and recharge.  
+Each robot operates on its own thread and interacts with bins.
 
-Robot
-Role: autonomous sorting agent
-Responsibility: pick up a WasteItem, identify or use provided type, move/deposit the item into the correct StorageBin, run autonomously (threaded), monitor battery level, request charging when battery low.
-In code: com.wastesystem.equipment.Robot (implements Runnable).
-Key operations: pickAndSort(WasteItem, StorageBin), run(), getBatteryLevel(), stopRobot().
+---
 
-ChargingStation
-Role: shared resource for recharging robots
-Responsibility: manage limited charging slots, allow robots to request charge and queue them if necessary.
-In code: com.wastesystem.charging.ChargingStation.
-Key operation: requestCharge(Robot) (or chargeRobot(Robot) in earlier versions).
+### 🔋 3. **Charging Subsystem**
+**Class:** `ChargingStation.java`  
+Handles robot recharging using synchronized queues and capacity limits.
 
-StorageBin
-Role: receptacle for sorted waste of a specific type
-Responsibility: accept items of the correct type only, track current fill level (sum of item weights), expose capacity and fill status for UI/progress bars, provide content listing for logs.
-In code: com.wastesystem.storage.StorageBin.
-Key operations: addItem(WasteItem), getCurrentSize() (total weight), getCapacity(), showContents().
+---
 
-WasteItem
-Role: domain object representing a piece of waste
-Responsibility: carry domain attributes such as type (PLASTIC, METAL, PAPER, ORGANIC) and weight (kg).
-In code: com.wastesystem.storage.WasteItem with nested enum Type.
-Key data: type: Type, weight: double.
+### 🗑️ 4. **Storage Subsystem**
+**Classes:** `StorageBin.java`, `WasteItem.java`  
+- Bins store categorized waste (Plastic, Metal, Paper, Organic).  
+- Automatically trigger recycling when full.
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Relationships & Multiplicities (conceptual)
+---
 
-WasteManagementSystem monitors TaskManager (1 → 1).
-TaskManager assigns tasks to Robot (1 → * ; one manager coordinates many robots).
-TaskManager directs waste to StorageBin (1 → * ; manager knows about multiple bins).
-Robot picks up WasteItem (1 → * ; each robot processes many items over time).
-Robot deposits items into StorageBin (* → 1 ; each item goes into one bin).
-StorageBin contains WasteItem (1 → * ; a bin stores many items).
-Robot charges at ChargingStation (* → 1 ; many robots use one or more charging ports).
+### 🔄 5. **Recycling Subsystem**
+**Class:** `RecyclingPlant.java`  
+Handles the recycling process once bins reach capacity.  
+Uses background threads for simulation and UI updates.
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Typical Runtime Sequence (task flow)
+---
 
-Start: WasteManagementSystem (UI) triggers TaskManager to start simulation.
-Task creation: the system generates WasteItems (random or from input) and calls TaskManager.addTask(item).
-Assignment: TaskManager.startProcessing() polls the task queue, finds an available robot, and assigns the WasteItem.
-Execution: The Robot receives the item and runs pickAndSort(item, targetBin) which calls targetBin.addItem(item). StorageBin updates its internal list and fill-level (sum of weights).
-UI Update: After addItem() the TaskManager (or robot) triggers the UI to read StorageBin.getCurrentSize() and refresh progress bars.
-Battery Handling: Robot periodically drains battery. If low, it requests the ChargingStation which queues and charges robots one-by-one or up to capacity.
-Completion: Once the task queue is empty and robots finish work, TaskManager logs completion; the UI displays final bin contents.
+### 🖥️ 6. **User Interface**
+**Class:** `WasteManagementUI.java`  
+A JavaFX-based dashboard showing:
+- Robot battery levels
+- Bin fill progress
+- System logs
+- Start & Reset controls
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Mapping Domain → Implementation (package & file mapping)
+---
 
-| Domain Class          | Java class / package                                              |
-| --------------------- | ----------------------------------------------------------------- |
-| WasteManagementSystem | `com.wastesystem.ui.WasteManagementUI` (+ `com.wastesystem.Main`) |
-| TaskManager           | `com.wastesystem.tasks.TaskManager`                               |
-| Robot                 | `com.wastesystem.equipment.Robot`                                 |
-| ChargingStation       | `com.wastesystem.charging.ChargingStation`                        |
-| StorageBin            | `com.wastesystem.storage.StorageBin`                              |
-| WasteItem             | `com.wastesystem.storage.WasteItem`                               |
+### 🧩 7. **Utilities**
+**Classes:**  
+- `LogHandler.java`: Centralized logging utility for console and file output.  
+- `SystemException.java`: Custom exception for system-level error handling.  
+- `*Test.java`: JUnit-based test files for modular and concurrency testing.
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Design decisions & rationale
+---
 
-Domain vs. Implementation separation: The domain diagram abstracts concepts (Robot, StorageBin, WasteItem) that remain stable even if implementation changes (e.g., switching JavaFX for a web UI).
-TaskManager as coordinator: keeps robotics and resource scheduling centralized and extensible (supports priorities, load balancing, persistence later).
-Robots as threads: modeling concurrent operation and resource contention (charging stations) simulates real-world parallelism and synchronization concerns.
-Bins measure weight: fill-levels are measured by aggregate weight (kg), not item count — more realistic for capacity planning.
+## 🧪 Testing Modules
+Located under `com.wastesystem.utils/`:
+| Test File | Purpose |
+|------------|----------|
+| `LogHandlerTest.java` | Validates logging outputs and error handling |
+| `RobotTest.java` | Tests sorting and battery cycles |
+| `StorageBinTest.java` | Tests capacity, recycling triggers, and exceptions |
+| `TaskManagerTest.java` | Validates task queueing and assignment logic |
+| `RecyclingTest.java` | Ensures recycling flow and synchronization |
+| `ConcurrencyTest.java` | Tests thread safety and deadlock prevention |
+| `ChargingStationTest.java` | Checks multi-robot charging management |
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Extension ideas (future work)
+---
 
-Add sensors & classification: integrate an ML classifier for automatic waste type recognition.
-Persist logs & metrics: write bin fill levels and robot uptime to a database for analytics.
-Web dashboard: replace JavaFX with a web UI and WebSocket updates for remote monitoring.
-Fault handling: simulate and handle robotic failures, stuck items, and bin overflow policies.
-Scheduling improvements: implement prioritized or cost-aware task scheduling in TaskManager.
+## 🧱 Technologies Used
+- **Java 21 (JDK 21)**
+- **JavaFX 21** — User Interface
+- **JUnit 5** — Testing Framework
+- **Git & GitHub** — Version Control
+- **PlantUML / Visual Paradigm** — UML Diagrams
+- **OOP Concepts:** Encapsulation, Inheritance, Polymorphism, Multithreading
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-How to run (quick)
-1.Install JDK (match JavaFX SDK version used in the project).
-2.In Eclipse: add JavaFX SDK to project build path and set VM args:
+---
 
-     --module-path "C:\path\to\javafx-sdk\lib" --add-modules javafx.controls,javafx.fxml
-3.Run com.wastesystem.ui.WasteManagementUI as Java Application to launch the dashboard (recommended for demo).
-4.Optionally run com.wastesystem.Main to run a console-only simulation.
+## 🧩 UML Class Diagram:
 
-Testing notes
+<img width="2324" height="1723" alt="Automated Waste Sorting   Recycling System (1)" src="https://github.com/user-attachments/assets/7944494d-b699-4b63-95ef-2f9fdb6c6bc2" />
 
-Verify StorageBin.showContents() prints expected contents after simulation.
-Confirm WasteManagementUI progress bars move according to StorageBin.getCurrentSize() / capacity.
-Test charging by forcing battery levels to drain quickly (adjust battery drain rates in Robot).
+---
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## 🚀 Running the Project
+
+### Prerequisites
+- Java 21+
+- JavaFX SDK installed
+- IDE: Eclipse / IntelliJ with JavaFX configured
+- JUnit 5 plugin (for testing)
+
+### Steps
+1. **Clone Repository**
+   ```bash
+   git clone https://github.com/myuniversitysubmission/Capstone_Project.git
+
+2. Open in Eclipse
+   Import as Java Project.
+   Add JavaFX libraries to module path.
+
+3. Run the Simulation
+    Run WasteManagementUI.java
+    Click Start Simulation to begin.
+
+4. Check Logs
+   System logs are generated in the console and saved in system_log.txt.
+
+---
+
+🧑‍💻 Team Members
+Role	Focus Area
+
+Adesh:	
+Dnyaneshwar:	
+Harshavarthan: 
+Anil:	
+
+---
+🗂️ Future Improvements
+    
+Integration with real sensor data via IoT.
+AI-based sorting optimization.
+Cloud-based analytics dashboard.
+Enhanced recycling efficiency simulation.
+
+---
+📘 License
+This project is developed for academic purposes under university guidelines.
+All rights reserved © 2025 Smart Waste Management Team.
