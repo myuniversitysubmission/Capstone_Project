@@ -182,7 +182,7 @@ Located under `com.wastesystem.utils/`:
 🧑‍💻 Team Members
 Role	Focus Area
 
-Adesh: Project Lead & Team Lead | Architecture & Dashboard (WasteManagementUI (JavaFX screens, progress bars, logging panel)) 
+Adesh: Architecture & Dashboard (WasteManagementUI (JavaFX screens, progress bars, logging panel)) 
 Dnyaneshwar: Core logic (TaskManager, Robot behaviour)
 Harshavarthan: Storage & recycling (StorageBin, WasteItem, capacity logic)
 Anil: Utilities & testing (RecyclingPlant ,battery simulation ,LogHandler, SystemException, JUnit tests, concurrency demos)
