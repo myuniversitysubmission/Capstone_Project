@@ -196,6 +196,10 @@ Cloud-based analytics dashboard.
 Enhanced recycling efficiency simulation.
 
 ---
+
+Video Explanation Link: https://drive.google.com/file/d/1tCvLB15QJ8EPPtAIdbMkw14zO3BlMuai/view?usp=sharing
+
+---
 📘 License
 This project is developed for academic purposes under university guidelines.
 All rights reserved © 2025 Smart Waste Management Team.
